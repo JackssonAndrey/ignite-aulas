@@ -69,7 +69,7 @@ app.post('/withdraw', verifyIfExistsAccountCPF, (req, res) => {
   if (balance < amount) return res.status(400).json({ error: 'Insufficient funds!' });
 
   const statementOperation = {
-    amount, 
+    amount,
     created_at: new Date(),
     type: 'debit'
   };
@@ -83,9 +83,9 @@ app.get('/statement/date', verifyIfExistsAccountCPF, (req, res) => {
   const { customer } = req;
   const { date } = req.query;
   const dateFormat = new Date(date + ' 00:00');
-  
+
   const statement = customer.statement.filter((statement) => statement.created_at.toDateString() === dateFormat.toDateString());
-  
+
   return res.json(statement);
 });
 
@@ -100,7 +100,7 @@ app.put('/account', verifyIfExistsAccountCPF, (req, res) => {
 
 app.get('/account', verifyIfExistsAccountCPF, (req, res) => {
   const { customer } = req;
-  return res.json(customer); 
+  return res.json(customer);
 });
 
 app.delete('/account', verifyIfExistsAccountCPF, (req, res) => {
