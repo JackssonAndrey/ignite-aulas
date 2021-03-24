@@ -1,12 +1,19 @@
-import { Category } from '../../entites/Category';
+import { inject, injectable } from 'tsyringe';
+
+import { Category } from '../../entities/Category';
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
+@injectable()
 class ListCategoriesUseCase {
-  // eslint-disable-next-line prettier/prettier
-  constructor(private categoriesRRepository: ICategoriesRepository) { }
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRRepository: ICategoriesRepository
+  ) {
+    /*  */
+  }
 
-  execute(): Category[] {
-    const categories = this.categoriesRRepository.list();
+  async execute(): Promise<Category[]> {
+    const categories = await this.categoriesRRepository.list();
 
     return categories;
   }
